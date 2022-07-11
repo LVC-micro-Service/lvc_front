@@ -60,7 +60,7 @@ export const sintomas = [
     }
 ]
 
-export const sexo = [
+export const sexoLista = [
     {
         id: 1,
         name: 'Masculino'
@@ -78,5 +78,5 @@ export const etnia = [
     { id: 2, name: "Amarela" },
     { id: 3, name: "Parda" },
     { id: 4, name: "Indígena" },
-    { id: 5, name: "Não_Informado" },
+    { id: 5, name: "Não Informado" },
 ]

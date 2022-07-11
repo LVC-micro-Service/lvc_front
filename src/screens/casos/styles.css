@@ -1,0 +1,29 @@
+.container {
+    justify-content: center;
+}
+
+.listagem-casos {
+    flex-direction: ROW;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.button-view-case {
+    float: right;
+}
+
+/* .paciente-infos-modal{
+    text-align: center;
+    align-items: center;
+}    */
+
+.endereco-paciente-infos-modal {
+    margin-top: 30px;
+}
+
+.sintomas-info-modal{
+    
+}

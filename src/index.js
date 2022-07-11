@@ -4,11 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Router } from './routes';
+import NavBar from './screens/components/Navbar/';
+import Footer from './screens/components/Footer/'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <NavBar />
     <Router />
+
+    <Footer />
+    
   </React.StrictMode>
 );
 
