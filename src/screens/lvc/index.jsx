@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 function NewLVC() {
     const navigate = useNavigate();
-    const dataRegistro = new Date('yyyy-mm-dd');
+    const data = new Date();
+    const dataRegistro = data.getFullYear() + '-' + String(data.getUTCMonth()).padStart(2, '0') + '-' + String(data.getUTCDate()).padStart(2, '0');
     const [name, setName] = useState("");
     const [codigoIBGE, setCodigoIBGE] = useState("");
     const [nomeMae, setNomeMae] = useState("");
@@ -38,6 +39,7 @@ function NewLVC() {
 
 
     function enviarReq() {
+
         api.post('/caso/inserir', {
 
             dataRegistro,
@@ -188,6 +190,11 @@ function NewLVC() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
+                    <Form.Label>CEP</Form.Label>
+                    <Form.Control type="text" placeholder="Codigo IBGE" value={cep} onChange={(e) => { setCep(e.target.value) }} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
                     <Form.Label>Endereço</Form.Label>
                     <Form.Control type="text" placeholder="Rua" value={logradouro} onChange={(e) => { setLogradouro(e.target.value) }} />
                 </Form.Group>
@@ -196,6 +203,12 @@ function NewLVC() {
                     <Form.Label>Número</Form.Label>
                     <Form.Control type="text" placeholder="Numero da casa" value={numeroCasa} onChange={(e) => { setNumeroCasa(e.target.value) }} />
                 </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Zona</Form.Label>
+                    <Form.Control type="text" placeholder="Codigo IBGE" value={zona} onChange={(e) => { setZona(e.target.value) }} />
+                </Form.Group>
+
 
                 <Form.Group className="mb-3">
                     <Form.Label>Distrito</Form.Label>
@@ -245,7 +258,6 @@ function NewLVC() {
                         const rand = Math.floor(Math.random() * 10)
                         sintomas.push(s[rand])
 
-                        console.log(JSON.stringify(sintomas))
 
                     }}
 
