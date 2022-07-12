@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { api, caso, inserir } from "../../api";
+import { api, casoROUTE, inserirROUTE } from "../../api";
 import { Form } from 'react-bootstrap'
-import { etnia, sexoLista, sintomas as s } from "../../data";
+import { changeSelected, etnia, sexoLista, sintomas as s } from "../../data";
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,9 +20,9 @@ function NewLVC() {
     const [peso, setPeso] = useState("");
     const [gestante, setGestante] = useState(false);
     const [numCartaoSus, setNumCartaoSus] = useState("");
-    const [etniaEnum, setEtniaEnum] = useState();
+    const [etniaEnum, setEtniaEnum] = useState(0);
     const [escolaridade, setEscolaridade] = useState("");
-    const [sexo, setSexo] = useState("");
+    const [sexo, setSexo] = useState("Masculino");
     const [enderecoCodigoIBGE, setEnderecoCodigoIBGE] = useState('');
     const [uf, setUf] = useState('');
     const [numeroCasa, setNumeroCasa] = useState('');
@@ -37,56 +37,118 @@ function NewLVC() {
     const [longitude, setLongitude] = useState('');
     var sintomas = [];
 
+    function removeSintoma(sintoma) {
+        sintomas.forEach(index => {
+            if (index.id == sintoma.id) {
 
-    function enviarReq() {
-
-        api.post('/caso/inserir', {
-
-            dataRegistro,
-            codigoIbge: codigoIBGE,
-            'paciente': {
-                name,
-                nomeMae,
-                hiv,
-                telefone,
-                peso,
-                gestante,
-                numCartaoSus,
-                etniaEnum,
-                escolaridade,
-                sexo,
-                endereco: {
-                    codigoIBGE,
-                    uf,
-                    municipio,
-                    cep,
-                    zona,
-                    distrito,
-                    bairro,
-                    logradouro,
-                    complemento,
-                    numeroCasa,
-                    geoLocalizacao:
-                    {
-                        latitude: Number(latitude),
-                        longitude: Number(longitude)
-                    }
-                },
+            }
+        })
+    }
 
 
-            },
-            sintomas
-        }).then(function (res) {
-            if (res.status === 200) {
-                navigate('/casos/listar')
+    console.log(sintomas)
+
+    async function enviarReq() {
+
+        s.forEach(sintoma => {
+            if (sintoma.selected) {
+                sintomas.push(sintoma)
             }
         })
 
+        console.log(sintomas)
+
+        // console.log({
+        //     dataRegistro,
+        //     codigoIbge: codigoIBGE,
+        //     'paciente': {
+        //         name,
+        //         nomeMae,
+        //         hiv,
+        //         telefone,
+        //         peso,
+        //         gestante,
+        //         numCartaoSus,
+        //         etniaEnum,
+        //         escolaridade,
+        //         sexo,
+        //         endereco: {
+        //             codigoIBGE,
+        //             uf,
+        //             municipio,
+        //             cep,
+        //             zona,
+        //             distrito,
+        //             bairro,
+        //             logradouro,
+        //             complemento,
+        //             numeroCasa,
+        //             geoLocalizacao:
+        //             {
+        //                 latitude: Number(latitude),
+        //                 longitude: Number(longitude)
+        //             }
+        //         },
+
+
+        //     },
+        //     sintomas
+        // })
+
+        if (sintomas.length > 1) {
+
+
+            api.post("/" + casoROUTE + "/" + inserirROUTE, {
+
+                dataRegistro,
+                codigoIbge: codigoIBGE,
+                'paciente': {
+                    name,
+                    nomeMae,
+                    hiv,
+                    telefone,
+                    peso: Number(peso),
+                    gestante,
+                    numCartaoSus,
+                    etniaEnum,
+                    escolaridade,
+                    sexo,
+                    endereco: {
+                        codigoIBGE,
+                        uf,
+                        municipio,
+                        cep,
+                        zona,
+                        distrito,
+                        bairro,
+                        logradouro,
+                        complemento,
+                        numeroCasa,
+                        geoLocalizacao:
+                        {
+                            latitude: Number(latitude),
+                            longitude: Number(longitude)
+                        }
+                    },
+
+
+                },
+                sintomas
+            }).then(function (res) {
+                if (res.status === 200) {
+                    navigate('/casos/listar')
+                }
+            })
+        }
+        else {
+            alert('Adicione Sintomas')
+        }
+        sintomas = [];
     }
 
 
     return (
-        <div style={{ justifyContent: "center", alignSelf: "center", backGroundColor: "black", position: 'relative' }}>
+        <div style={{ justifyContent: "center", alignSelf: "center", backGroundColor: "black", position: 'relative', marginBottom: 100 }}>
 
             <h1> Registro de um caso </h1>
             <Form>
@@ -250,18 +312,24 @@ function NewLVC() {
                     }} />
                 </Form.Group>
 
-                <Button
+                <div style={{ flexDirection: 'row', borderWidth: 1, borderStyle: "solid", width: '50%', justifyContent: 'center' }}>
+                    <p>Sintomas</p>
+                    <Form.Group>
+                        {s.map(sintoma => {
+                            return (
+                                <Form.Check type="checkbox" label={sintoma.name} value={sintoma} onChange={() => {
+                                    changeSelected(sintoma);
 
-                    onClick={() => {
+                                }}>
+                                </Form.Check>
+                            )
+                        })}
+                    </Form.Group>
 
 
-                        const rand = Math.floor(Math.random() * 10)
-                        sintomas.push(s[rand])
+                </div>
 
 
-                    }}
-
-                >Adicionar Sintoma</Button>
 
                 <Button
 

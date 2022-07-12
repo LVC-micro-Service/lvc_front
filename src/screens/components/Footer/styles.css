@@ -3,7 +3,7 @@
 }
 
 .footer-custom {
-    position: relative;
+    position: fixed;
     left: 0;
     bottom: 0;
     right: 0;
