@@ -5,9 +5,12 @@ import ListGroup from "react-bootstrap/esm/ListGroup";
 import './styles.css'
 import { Button } from "@material-ui/core";
 import Modal from 'react-bootstrap/Modal';
+import { setCasoGlobal } from "../../data/tratamento";
+import { useNavigate } from "react-router-dom";
 
 
 function CasosScreen() {
+    const navigate = useNavigate();
     const [casos, setCasos] = useState([]);
     const [show, setShow] = useState(false);
     const [caso, setCaso] = useState({});
@@ -18,7 +21,6 @@ function CasosScreen() {
 
     useEffect(() => {
         api.get('/caso/listar').then(response => {
-            console.log(response.data)
             setCasos(response.data);
         })
     }, [])
@@ -31,7 +33,7 @@ function CasosScreen() {
 
             <ListGroup>
                 {
-                    casos.map((caso) => {
+                    casos.map((caso, index) => {
                         return (
                             <div className="listagem-casos">
                                 <a>{caso.CasoCompleto.Paciente.name}</a>
@@ -99,6 +101,15 @@ function CasosScreen() {
 
                                 <div>
                                     <h5>Tratamentos</h5>
+
+                                    <p>{caso.CasoCompleto.Tratamento.droga}</p>
+                                    <p>{caso.CasoCompleto.Tratamento.dosagem}</p>
+
+                                    {caso.CasoCompleto.Tratamento === "" && (<button onClick={() => { 
+                                        handleClose(); 
+                                        setCasoGlobal(caso); 
+                                        navigate('/tratamento/inserir');
+                                    }}>Adicionar Tratamento</button>)}
                                 </div>
 
                             </Modal.Body>
