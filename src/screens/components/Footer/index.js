@@ -10,7 +10,7 @@ import {
 
 function Footer() {
     return (
-        <div className="footer-custom">
+        <footer>
             <MDBFooter className='text-center text-white' style={{ backgroundColor: '#f1f1f1' }}>
                 <div className='text-center p-3' style={{ backgroundColor: '#121214' }}>
                     Desenvolvido por 
@@ -19,7 +19,7 @@ function Footer() {
                     </a>
                 </div>
             </MDBFooter>
-        </div>
+        </footer>
     );
 }
 

@@ -5,10 +5,11 @@ import "./styles.css"
 
 function NavBar() {
     return (
-            <Navbar collapseOnSelect className = "background-navbar" expand="lg" variant="dark">
-            <Container>
-                <Navbar.Brand href="/">LVC - PAMPACARE</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <header>
+            <Navbar collapseOnSelect className="background-navbar" expand="lg" variant="dark">
+                <Container>
+                    <Navbar.Brand href="/">LVC - PAMPACARE</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="#casos">Dashboard</Nav.Link>
@@ -19,10 +20,11 @@ function NavBar() {
                                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                       
-                        </Navbar.Collapse>
-            </Container>
-        </Navbar>
+
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </header>
     )
 }
 

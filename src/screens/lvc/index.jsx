@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Button } from '@material-ui/core'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { api, caso, inserir } from "../../api";
 import { Form } from 'react-bootstrap'
 import { etnia, sexoLista, sintomas as s } from "../../data";
